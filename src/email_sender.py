@@ -110,7 +110,16 @@ class EmailSender:
         Falls back to environment variables if not provided.
         """
         self.smtp_server = smtp_server or os.getenv("SMTP_SERVER", "smtp.gmail.com")
-        self.smtp_port = smtp_port or int(os.getenv("SMTP_PORT", "587"))
+        
+        # Handle empty or missing SMTP_PORT
+        env_port = os.getenv("SMTP_PORT")
+        if smtp_port is not None:
+            self.smtp_port = smtp_port
+        elif env_port and env_port.strip():
+            self.smtp_port = int(env_port)
+        else:
+            self.smtp_port = 587
+            
         self.username = username or os.getenv("SMTP_USERNAME")
         self.password = password or os.getenv("SMTP_PASSWORD")
         

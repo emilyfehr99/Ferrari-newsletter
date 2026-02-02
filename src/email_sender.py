@@ -74,7 +74,7 @@ WELCOME_TEMPLATE = """
                                 <p style="color: #EF1A2D; font-size: 14px; font-weight: 700; margin: 0;">FORZA FERRARI! 🇮🇹</p>
                                 <p style="margin: 15px 0 0 0; font-family: Arial, sans-serif; font-size: 10px; color: #999999;">
                                     This email was sent to {email}.<br>
-                                    <a href="https://ferrari-newsletter.vercel.app/unsubscribe.html?email={email}" style="color: #888888; text-decoration: underline;">Unsubscribe from these briefings</a>
+                                    <a href="https://ferrari-newsletter.vercel.app/unsubscribe.html?email={email}" style="color: #888888; text-decoration: underline;">Unsubscribe</a> · <a href="https://ferrari-newsletter.vercel.app/privacy.html" style="color: #888888; text-decoration: underline;">Privacy Policy</a>
                                 </p>
                             </div>
                         </td>

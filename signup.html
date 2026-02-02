@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferrari F1 Newsletter - Subscribe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Titillium Web', Arial, sans-serif;
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 50%, #0d0d0d 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .card {
+            background: linear-gradient(180deg, #141414 0%, #1a1a1a 100%);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(239, 26, 45, 0.2);
+        }
+
+        /* Italian Flag Border */
+        .flag-border {
+            display: flex;
+            height: 5px;
+        }
+
+        .flag-border div {
+            flex: 1;
+        }
+
+        .flag-green {
+            background: linear-gradient(90deg, #00A551 0%, #00B85A 100%);
+        }
+
+        .flag-white {
+            background: #FFFFFF;
+        }
+
+        .flag-red {
+            background: linear-gradient(90deg, #EF1A2D 0%, #FF2D40 100%);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(145deg, #C41422 0%, #EF1A2D 30%, #FF3344 70%, #EF1A2D 100%);
+            padding: 50px 40px 40px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #FFF200;
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 20px rgba(255, 242, 0, 0.4);
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Form */
+        .form-section {
+            padding: 40px;
+        }
+
+        .form-intro {
+            color: #FFFFFF;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-intro span {
+            color: #EF1A2D;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            color: #888;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: linear-gradient(145deg, #222 0%, #2a2a2a 100%);
+            border: 2px solid #333;
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-family: 'Titillium Web', Arial, sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #EF1A2D;
+            box-shadow: 0 0 20px rgba(239, 26, 45, 0.2);
+        }
+
+        .form-input::placeholder {
+            color: #555;
+        }
+
+        /* Language Selection */
+        .language-options {
+            display: flex;
+            gap: 12px;
+        }
+
+        .language-option {
+            flex: 1;
+            position: relative;
+        }
+
+        .language-option input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .language-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 12px;
+            background: linear-gradient(145deg, #222 0%, #2a2a2a 100%);
+            border: 2px solid #333;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-label:hover {
+            border-color: #555;
+        }
+
+        .language-option input:checked+.language-label {
+            border-color: #EF1A2D;
+            background: linear-gradient(145deg, #2a2a2a 0%, #333 100%);
+            box-shadow: 0 0 20px rgba(239, 26, 45, 0.15);
+        }
+
+        .language-flag {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .language-name {
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 18px 30px;
+            background: linear-gradient(135deg, #FFF200 0%, #FFE600 100%);
+            border: none;
+            border-radius: 12px;
+            color: #000000;
+            font-family: 'Titillium Web', Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 30px rgba(255, 242, 0, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(255, 242, 0, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 25px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer p {
+            color: #555;
+            font-size: 12px;
+        }
+
+        .footer a {
+            color: #888;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #EF1A2D;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .success-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .success-message h2 {
+            color: #FFF200;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .success-message p {
+            color: #CCCCCC;
+            line-height: 1.6;
+        }
+
+        /* Preview Link */
+        .preview-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 14px;
+            color: #888;
+            font-size: 14px;
+            text-decoration: none;
+            border: 2px solid #333;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .preview-link:hover {
+            border-color: #EF1A2D;
+            color: #FFFFFF;
+        }
+
+        .preview-link span {
+            color: #FFF200;
+        }
+
+        /* Shareable Link Section */
+        .share-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .share-label {
+            color: #666;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .share-url {
+            display: flex;
+            gap: 10px;
+        }
+
+        .share-input {
+            flex: 1;
+            padding: 12px 16px;
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #FFF200;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .copy-btn {
+            padding: 12px 18px;
+            background: #333;
+            border: none;
+            border-radius: 8px;
+            color: #FFFFFF;
+            font-family: 'Titillium Web', Arial, sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: #EF1A2D;
+        }
+
+        .copy-btn.copied {
+            background: #00A551;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <!-- Italian Flag Border Top -->
+            <div class="flag-border">
+                <div class="flag-green"></div>
+                <div class="flag-white"></div>
+                <div class="flag-red"></div>
+            </div>
+
+            <!-- Header -->
+            <div class="header">
+                <img src="https://1000logos.net/wp-content/uploads/2021/04/Ferrari-logo.png" alt="Ferrari" class="logo">
+                <h1>Scuderia Ferrari</h1>
+                <p>F1 Weekly Newsletter</p>
+            </div>
+
+            <!-- Form Section -->
+            <div class="form-section" id="formSection">
+                <p class="form-intro">
+                    Join <span>50,000+ Tifosi</span> who receive weekly Ferrari F1 news, technical analysis, and race
+                    insights directly in their inbox.
+                </p>
+
+                <form id="subscribeForm">
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="email" placeholder="your@email.com" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        🏎️ Subscribe Now
+                    </button>
+
+                    <a href="index.html" class="preview-link">
+                        👀 Just browsing? <span>View the latest newsletter</span>
+                    </a>
+
+                    <div class="share-section">
+                        <p class="share-label">📢 Share with fellow Tifosi</p>
+                        <div class="share-url">
+                            <input type="text" class="share-input" id="shareUrl"
+                                value="https://ferrari-newsletter.vercel.app/" readonly>
+                            <button type="button" class="copy-btn" id="copyBtn">Copy</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Success Message (hidden by default) -->
+            <div class="success-message" id="successMessage">
+                <div class="success-icon">🏁</div>
+                <h2>Benvenuto, Tifoso!</h2>
+                <p>You've successfully subscribed to the Ferrari F1 Newsletter. Your first email will arrive on Sunday
+                    morning. <br><br><strong>Forza Ferrari! 🇮🇹</strong></p>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p>Curated with ❤️ for Ferrari fans worldwide<br>
+                    <a href="#">Unsubscribe</a> · <a href="#">Privacy Policy</a>
+                </p>
+            </div>
+
+            <!-- Italian Flag Border Bottom -->
+            <div class="flag-border">
+                <div class="flag-green"></div>
+                <div class="flag-white"></div>
+                <div class="flag-red"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form handling connected to Vercel API
+        document.getElementById('subscribeForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const submitBtn = e.target.querySelector('button');
+            const originalText = submitBtn.innerHTML;
+
+            // Loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '🏎️ Processing...';
+
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                const result = await response.json();
+
+                if (response.ok \u0026\u0026 result.success) {
+            // Show success message
+            document.getElementById('formSection').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        } else {
+            alert('Error: ' + (result.error || 'Failed to subscribe'));
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+            } catch (err) {
+            console.error('Subscription error:', err);
+            alert('Connection error. Please try again later.');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+        });
+
+        // Copy URL functionality
+        document.getElementById('copyBtn').addEventListener('click', function () {
+            const shareUrl = document.getElementById('shareUrl');
+            shareUrl.select();
+            shareUrl.setSelectionRange(0, 99999); // Mobile support
+
+            navigator.clipboard.writeText(shareUrl.value).then(() => {
+                const btn = document.getElementById('copyBtn');
+                btn.textContent = '✓ Copied!';
+                btn.classList.add('copied');
+
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+
+        // Set the share URL to current page URL when hosted
+        if (window.location.protocol !== 'file:') {
+            document.getElementById('shareUrl').value = window.location.origin + '/';
+        }
+    </script>
+</body>
+
+</html>

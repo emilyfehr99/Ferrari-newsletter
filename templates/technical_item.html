@@ -1,0 +1,46 @@
+<!-- Technical Update Item Template -->
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+    <tr>
+        <td class="mobile-padding" style="padding: 8px 50px;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+                style="background-color: #F8F8F8; border-radius: 8px; border-left: 4px solid #EF1A2D;">
+                <tr>
+                    <td style="padding: 18px 20px;">
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td width="40" style="vertical-align: top; padding-right: 15px;">
+                                    <!-- Icon -->
+                                    <div
+                                        style="background-color: #000000; border-radius: 50%; width: 40px; height: 40px; text-align: center; line-height: 40px;">
+                                        <span style="font-size: 18px;">{{TECH_ICON}}</span>
+                                    </div>
+                                </td>
+                                <td style="vertical-align: top;">
+                                    <!-- Technical Title -->
+                                    <h4
+                                        style="margin: 0 0 6px 0; font-family: 'Formula1', Arial, sans-serif; font-size: 15px; font-weight: 700; color: #000000;">
+                                        {{TECH_TITLE}}
+                                    </h4>
+                                    <!-- Technical Description -->
+                                    <p
+                                        style="margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 14px; line-height: 1.5; color: #555555;">
+                                        {{TECH_DESCRIPTION}}
+                                    </p>
+                                    <!-- Source Link (optional) -->
+                                    {{#if TECH_SOURCE_URL}}
+                                    <p style="margin: 10px 0 0 0;">
+                                        <a href="{{TECH_SOURCE_URL}}"
+                                            style="font-family: Arial, sans-serif; font-size: 12px; color: #EF1A2D; text-decoration: none; font-weight: 600;">
+                                            Learn more →
+                                        </a>
+                                    </p>
+                                    {{/if}}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

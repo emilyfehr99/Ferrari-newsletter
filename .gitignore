@@ -1,0 +1,11 @@
+.vercel
+.env
+__pycache__/
+*.pyc
+data/*.db
+index.html
+*.log
+.DS_Store
+node_modules/
+dist/
+build/

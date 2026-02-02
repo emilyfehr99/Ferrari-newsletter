@@ -1,0 +1,74 @@
+<!-- Single Article Card Template -->
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+    <tr>
+        <td class="mobile-padding" style="padding: 10px 50px;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+                style="border: 1px solid #E5E5E5; border-radius: 10px; overflow: hidden;">
+                <tr>
+                    <td style="padding: 0;">
+                        <!-- Article Image (optional) -->
+                        {{#if ARTICLE_IMAGE}}
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td>
+                                    <img src="{{ARTICLE_IMAGE}}" alt="{{ARTICLE_TITLE}}" width="100%"
+                                        style="display: block; max-height: 200px; object-fit: cover;">
+                                </td>
+                            </tr>
+                        </table>
+                        {{/if}}
+
+                        <!-- Article Content -->
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td style="padding: 20px 25px;">
+                                    <!-- Category Tag -->
+                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                        <tr>
+                                            <td
+                                                style="background-color: {{CATEGORY_COLOR}}; border-radius: 4px; padding: 4px 10px; margin-bottom: 10px;">
+                                                <span
+                                                    style="font-family: Arial, sans-serif; font-size: 10px; font-weight: 600; color: #FFFFFF; letter-spacing: 1px; text-transform: uppercase;">{{ARTICLE_CATEGORY}}</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <!-- Title -->
+                                    <h3
+                                        style="margin: 12px 0 8px 0; font-family: 'Formula1', Arial, sans-serif; font-size: 18px; font-weight: 700; color: #000000; line-height: 1.3;">
+                                        <a href="{{ARTICLE_URL}}"
+                                            style="color: #000000; text-decoration: none;">{{ARTICLE_TITLE}}</a>
+                                    </h3>
+
+                                    <!-- Meta Info -->
+                                    <p
+                                        style="margin: 0 0 12px 0; font-family: Arial, sans-serif; font-size: 12px; color: #888888;">
+                                        {{ARTICLE_SOURCE}} · {{ARTICLE_DATE}}
+                                    </p>
+
+                                    <!-- Summary -->
+                                    <p
+                                        style="margin: 0 0 15px 0; font-family: Georgia, 'Times New Roman', serif; font-size: 15px; line-height: 1.6; color: #444444;">
+                                        {{ARTICLE_SUMMARY}}
+                                    </p>
+
+                                    <!-- Read More Link -->
+                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                        <tr>
+                                            <td style="background-color: #EF1A2D; border-radius: 6px;">
+                                                <a href="{{ARTICLE_URL}}"
+                                                    style="display: inline-block; font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; color: #FFFFFF; text-decoration: none; padding: 10px 20px; letter-spacing: 0.5px;">
+                                                    READ MORE →
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

@@ -2,7 +2,7 @@
 .env
 __pycache__/
 *.pyc
-index.html
+# index.html removed from ignore to support Vercel deployment
 *.log
 .DS_Store
 node_modules/

@@ -398,10 +398,9 @@
                     morning. <br><br><strong>Forza Ferrari! 🇮🇹</strong></p>
             </div>
 
-            <!-- Footer -->
             <div class="footer">
                 <p>Curated with ❤️ for Ferrari fans worldwide<br>
-                    <a href="#">Unsubscribe</a> · <a href="#">Privacy Policy</a>
+                    <a href="unsubscribe.html">Unsubscribe</a> · <a href="#">Privacy Policy</a>
                 </p>
             </div>
 
@@ -436,21 +435,21 @@
 
                 const result = await response.json();
 
-                if (response.ok \u0026\u0026 result.success) {
-            // Show success message
-            document.getElementById('formSection').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
-        } else {
-            alert('Error: ' + (result.error || 'Failed to subscribe'));
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
-        }
+                if (response.ok && result.success) {
+                    // Show success message
+                    document.getElementById('formSection').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                } else {
+                    alert('Error: ' + (result.error || 'Failed to subscribe'));
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
             } catch (err) {
-            console.error('Subscription error:', err);
-            alert('Connection error. Please try again later.');
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
-        }
+                console.error('Subscription error:', err);
+                alert('Connection error. Please try again later.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
         });
 
         // Copy URL functionality

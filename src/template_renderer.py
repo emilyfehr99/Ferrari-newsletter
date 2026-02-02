@@ -507,7 +507,7 @@ class TemplateRenderer:
                             <h3 style="margin: 0 0 12px 0; font-family: 'Titillium Web', Arial, sans-serif; font-size: 22px; font-weight: 900; color: #FFFFFF; letter-spacing: 2px;">FORZA FERRARI! 🇮🇹</h3>
                             <p style="margin: 0 0 25px 0; font-family: 'Titillium Web', Arial, sans-serif; font-size: 14px; color: #777777;">Stay passionate, stay informed. See you at the next race!</p>
                             <p style="margin: 0; font-family: 'Titillium Web', Arial, sans-serif; font-size: 11px; color: #555555;">Curated with ❤️ for Ferrari fans worldwide</p>
-                            <p style="margin: 15px 0 0 0; font-family: 'Titillium Web', Arial, sans-serif; font-size: 11px;"><a href="signup.html?unsubscribe=true" style="color: #888888; text-decoration: underline;">Unsubscribe</a> · <a href="#" style="color: #888888; text-decoration: underline;">View in Browser</a></p>
+                            <p style="margin: 15px 0 0 0; font-family: 'Titillium Web', Arial, sans-serif; font-size: 11px;"><a href="https://ferrari-newsletter.vercel.app/unsubscribe.html" style="color: #888888; text-decoration: underline;">Unsubscribe</a> · <a href="https://ferrari-newsletter.vercel.app/" style="color: #888888; text-decoration: underline;">View in Browser</a></p>
                         </td>
                     </tr>
                     

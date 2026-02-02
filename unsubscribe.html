@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferrari F1 Newsletter - Unsubscribe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Titillium Web', Arial, sans-serif;
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 50%, #0d0d0d 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .card {
+            background: linear-gradient(180deg, #141414 0%, #1a1a1a 100%);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(239, 26, 45, 0.2);
+        }
+
+        /* Italian Flag Border */
+        .flag-border {
+            display: flex;
+            height: 5px;
+        }
+
+        .flag-border div {
+            flex: 1;
+        }
+
+        .flag-green {
+            background: linear-gradient(90deg, #00A551 0%, #00B85A 100%);
+        }
+
+        .flag-white {
+            background: #FFFFFF;
+        }
+
+        .flag-red {
+            background: linear-gradient(90deg, #EF1A2D 0%, #FF2D40 100%);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(145deg, #C41422 0%, #EF1A2D 30%, #FF3344 70%, #EF1A2D 100%);
+            padding: 50px 40px 40px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #FFF200;
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 20px rgba(255, 242, 0, 0.4);
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Form */
+        .form-section {
+            padding: 40px;
+        }
+
+        .form-intro {
+            color: #FFFFFF;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            color: #888;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: linear-gradient(145deg, #222 0%, #2a2a2a 100%);
+            border: 2px solid #333;
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-family: 'Titillium Web', Arial, sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #EF1A2D;
+            box-shadow: 0 0 20px rgba(239, 26, 45, 0.2);
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 18px 30px;
+            background: #222;
+            border: 2px solid #EF1A2D;
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-family: 'Titillium Web', Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #EF1A2D;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(239, 26, 45, 0.3);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .success-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .success-message h2 {
+            color: #FFF200;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .success-message p {
+            color: #CCCCCC;
+            line-height: 1.6;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 14px;
+            color: #888;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #FFF200;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="flag-border">
+                <div class="flag-green"></div>
+                <div class="flag-white"></div>
+                <div class="flag-red"></div>
+            </div>
+
+            <div class="header">
+                <img src="https://1000logos.net/wp-content/uploads/2021/04/Ferrari-logo.png" alt="Ferrari" class="logo">
+                <h1>Maranello Insider</h1>
+                <p>Unsubscribe from Briefings</p>
+            </div>
+
+            <div class="form-section" id="formSection">
+                <p class="form-intro">We're sorry to see you go. Confirm your email below to unsubscribe.</p>
+
+                <form id="unsubscribeForm">
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="email" placeholder="your@email.com" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        Confirm Unsubscribe
+                    </button>
+
+                    <a href="signup.html" class="back-link">Wait, keep me subscribed!</a>
+                </form>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                <div class="success-icon">👋</div>
+                <h2>You've been unsubscribed</h2>
+                <p>We've removed your email from our list. You won't receive any more technical briefings from
+                    us.<br><br>You're always welcome to come back!</p>
+                <a href="signup.html" class="back-link">Return to Homepage</a>
+            </div>
+
+            <div class="flag-border">
+                <div class="flag-green"></div>
+                <div class="flag-white"></div>
+                <div class="flag-red"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const emailParam = urlParams.get('email');
+        const successParam = urlParams.get('success');
+
+        if (emailParam) {
+            document.getElementById('email').value = emailParam;
+        }
+
+        if (successParam === 'true') {
+            document.getElementById('formSection').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        }
+
+        document.getElementById('unsubscribeForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerHTML;
+
+            btn.disabled = true;
+            btn.innerHTML = 'Processing...';
+
+            try {
+                const response = await fetch('/api/unsubscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    document.getElementById('formSection').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                } else {
+                    alert('Error unsubscribing. Please try again.');
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                }
+            } catch (err) {
+                alert('Connection error.');
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        });
+    </script>
+</body>
+
+</html>

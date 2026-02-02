@@ -72,6 +72,10 @@ WELCOME_TEMPLATE = """
                             
                             <div style="margin-top: 40px; border-top: 1px solid #eeeeee; padding-top: 20px; text-align: center;">
                                 <p style="color: #EF1A2D; font-size: 14px; font-weight: 700; margin: 0;">FORZA FERRARI! 🇮🇹</p>
+                                <p style="margin: 15px 0 0 0; font-family: Arial, sans-serif; font-size: 10px; color: #999999;">
+                                    This email was sent to {email}.<br>
+                                    <a href="https://ferrari-newsletter.vercel.app/unsubscribe.html?email={email}" style="color: #888888; text-decoration: underline;">Unsubscribe from these briefings</a>
+                                </p>
                             </div>
                         </td>
                     </tr>
@@ -216,8 +220,12 @@ class EmailSender:
     def send_confirmation(self, email: str) -> bool:
         """Send a subscription confirmation email"""
         logger.info(f"Sending confirmation email to {email}")
+        
+        # Personalize welcome template
+        content = WELCOME_TEMPLATE.format(email=email)
+        
         return self.send(
-            html_content=WELCOME_TEMPLATE,
+            html_content=content,
             recipients=[email],
             subject="🏎️ Welcome to the Maranello Insider",
             from_name="Maranello Insider"

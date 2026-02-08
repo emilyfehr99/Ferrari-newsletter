@@ -139,21 +139,24 @@ class EmailSender:
              html_content: str,
              recipients: List[str],
              subject: str = "🏎️ Ferrari F1 Weekly Digest",
-             from_name: str = "Ferrari F1 Newsletter") -> bool:
+             from_name: str = "Ferrari F1 Newsletter") -> tuple[bool, str]:
         """
         Send the newsletter to a list of recipients.
         Prioritizes Resend if API key is present.
+        Returns (success, error_message)
         """
         if self.resend_api_key:
             return self._send_via_resend(html_content, recipients, subject, from_name)
         
         if not self.username or not self.password:
-            logger.error("Email configuration missing (no Resend key or SMTP credentials)!")
-            return False
+            error_msg = "Email configuration missing (no Resend key or SMTP credentials)!"
+            logger.error(error_msg)
+            return False, error_msg
             
-        return self._send_via_smtp(html_content, recipients, subject, from_name)
+        success = self._send_via_smtp(html_content, recipients, subject, from_name)
+        return success, "" if success else "SMTP delivery failed. Check server logs."
 
-    def _send_via_resend(self, html_content: str, recipients: List[str], subject: str, from_name: str) -> bool:
+    def _send_via_resend(self, html_content: str, recipients: List[str], subject: str, from_name: str) -> tuple[bool, str]:
         """Send email using Resend API"""
         try:
             # Resend free tier requirements: 
@@ -193,10 +196,14 @@ class EmailSender:
             
             response = resend.Emails.send(params)
             logger.info(f"Email sent via Resend successfully to {len(recipients)} recipients")
-            return True
+            return True, ""
         except Exception as e:
-            logger.error(f"Resend API error: {e}")
-            return False
+            error_msg = str(e)
+            logger.error(f"Resend API error: {error_msg}")
+            # Check for common free tier errors to guide the user
+            if "Restriction of the Resend Free Tier" in error_msg:
+                error_msg = "Resend Free Tier Restriction: You can only send to your own verified email."
+            return False, error_msg
 
     def _send_via_smtp(self, html_content: str, recipients: List[str], subject: str, from_name: str) -> bool:
         """Send email using standard SMTP"""
@@ -259,7 +266,7 @@ class EmailSender:
             logger.error(f"Failed to send email via SMTP: {e}")
             return False
     
-    def send_test(self, html_content: str, test_email: str) -> bool:
+    def send_test(self, html_content: str, test_email: str) -> tuple[bool, str]:
         """Send a test email to a single recipient"""
         return self.send(
             html_content=html_content,
@@ -267,7 +274,7 @@ class EmailSender:
             subject="[TEST] 🏎️ Ferrari F1 Weekly Digest"
         )
     
-    def send_confirmation(self, email: str) -> bool:
+    def send_confirmation(self, email: str) -> tuple[bool, str]:
         """Send a subscription confirmation email"""
         logger.info(f"Sending confirmation email to {email}")
         

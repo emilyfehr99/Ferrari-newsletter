@@ -40,7 +40,7 @@ class handler(BaseHTTPRequestHandler):
             
             # Even if DB fails (read-only), we still want to send the confirmation email
             # This ensures the user experience is preserved for the demo
-            email_sent = sender.send_confirmation(email)
+            email_sent, error_msg = sender.send_confirmation(email)
             
             if email_sent:
                 self._send_response(200, {
@@ -49,7 +49,7 @@ class handler(BaseHTTPRequestHandler):
                     "db_status": db_result.get("success", False)
                 })
             else:
-                self._send_response(500, {"success": False, "error": "Failed to send confirmation email"})
+                self._send_response(500, {"success": False, "error": f"Failed to send confirmation email: {error_msg}"})
                 
         except Exception as e:
             self._send_response(500, {"success": False, "error": str(e)})

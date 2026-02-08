@@ -98,12 +98,12 @@ class NewsletterGenerator:
             html = self.generate(save_preview=False, is_email=True)
         
         logger.info(f"📧 Sending newsletter to {len(recipients)} recipients...")
-        success = self.sender.send(html, recipients)
+        success, error_msg = self.sender.send(html, recipients)
         
         if success:
             logger.info("✅ Newsletter sent successfully!")
         else:
-            logger.error("❌ Failed to send newsletter")
+            logger.error(f"❌ Failed to send newsletter: {error_msg}")
         
         return success
     

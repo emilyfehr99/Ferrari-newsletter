@@ -145,16 +145,31 @@ class EmailSender:
         Prioritizes Resend if API key is present.
         Returns (success, error_message)
         """
+        resend_error = None
         if self.resend_api_key:
-            return self._send_via_resend(html_content, recipients, subject, from_name)
+            success, error_msg = self._send_via_resend(html_content, recipients, subject, from_name)
+            if success:
+                return True, ""
+            
+            # If Resend failed, check if it's a "testing mode" restriction
+            # If so, we'll try falling back to SMTP if available
+            if "Restriction of the Resend Free Tier" in error_msg or "Testing Mode" in error_msg:
+                resend_error = error_msg
+                logger.warning(f"Resend is restricted: {error_msg}. Attempting SMTP fallback...")
+            else:
+                return False, error_msg
         
+        # Check if we have SMTP credentials for fallback or primary use
         if not self.username or not self.password:
-            error_msg = "Email configuration missing (no Resend key or SMTP credentials)!"
+            error_msg = resend_error if resend_error else "Email configuration missing (no Resend key or SMTP credentials)!"
             logger.error(error_msg)
             return False, error_msg
             
         success = self._send_via_smtp(html_content, recipients, subject, from_name)
-        return success, "" if success else "SMTP delivery failed. Check server logs."
+        if success:
+            return True, ""
+        
+        return False, "SMTP delivery failed after Resend failure. Check server logs." if resend_error else "SMTP delivery failed. Check server logs."
 
     def _send_via_resend(self, html_content: str, recipients: List[str], subject: str, from_name: str) -> tuple[bool, str]:
         """Send email using Resend API"""

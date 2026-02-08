@@ -40,12 +40,13 @@ class NewsletterGenerator:
         self.sender = EmailSender()
         self.subscribers = SubscriberManager()
     
-    def generate(self, save_preview: bool = True) -> str:
+    def generate(self, save_preview: bool = True, is_email: bool = False) -> str:
         """
         Generate the newsletter HTML.
         
         Args:
             save_preview: If True, save a preview HTML file
+            is_email: If True, render for email (using cid references)
             
         Returns:
             The rendered HTML newsletter
@@ -65,8 +66,8 @@ class NewsletterGenerator:
                    f"{len(selected['technical'])} technical")
         
         # Step 3: Render the template
-        logger.info("🎨 Rendering newsletter template...")
-        html = self.renderer.render(selected)
+        logger.info(f"🎨 Rendering newsletter template (is_email={is_email})...")
+        html = self.renderer.render(selected, is_email=is_email)
         
         # Step 4: Save preview if requested
         if save_preview:
@@ -94,7 +95,7 @@ class NewsletterGenerator:
             True if sent successfully
         """
         if html is None:
-            html = self.generate(save_preview=False)
+            html = self.generate(save_preview=False, is_email=True)
         
         logger.info(f"📧 Sending newsletter to {len(recipients)} recipients...")
         success = self.sender.send(html, recipients)
@@ -210,15 +211,15 @@ Examples:
     
     if args.send:
         # Send to specified recipients
-        html = generator.generate(save_preview=False)
+        html = generator.generate(save_preview=False, is_email=True)
         generator.send(args.send, html)
     elif args.send_all:
         # Send to all subscribers
-        html = generator.generate(save_preview=False)
+        html = generator.generate(save_preview=False, is_email=True)
         generator.send_to_all_subscribers(html)
     elif args.test_email:
         # Send test email
-        html = generator.generate(save_preview=False)
+        html = generator.generate(save_preview=False, is_email=True)
         generator.send([args.test_email], html)
     elif args.subscribe:
         # Subscribe new user

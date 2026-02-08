@@ -43,7 +43,8 @@ class TemplateRenderer:
     
     def render(self, selected_articles: dict, 
                driver_standings: dict = None,
-               constructor_standings: dict = None) -> str:
+               constructor_standings: dict = None,
+               is_email: bool = False) -> str:
         """Render the complete newsletter HTML"""
         
         # Default standings if not provided
@@ -67,7 +68,8 @@ class TemplateRenderer:
             headlines_html=headlines_html,
             technical_html=technical_html,
             driver_standings=driver_standings,
-            constructor_standings=constructor_standings
+            constructor_standings=constructor_standings,
+            is_email=is_email
         )
         
         return html
@@ -280,7 +282,8 @@ class TemplateRenderer:
     
     def _build_complete_html(self, newsletter_date: str, featured_html: str,
                              headlines_html: str, technical_html: str,
-                             driver_standings: dict, constructor_standings: dict) -> str:
+                             driver_standings: dict, constructor_standings: dict,
+                             is_email: bool = False) -> str:
         """Build the complete newsletter HTML"""
         
         d1 = driver_standings["driver1"]
@@ -326,7 +329,7 @@ class TemplateRenderer:
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="background: linear-gradient(145deg, #C41422 0%, #EF1A2D 30%, #FF3344 70%, #EF1A2D 100%); padding: 40px 40px 30px 40px; text-align: center;">
-                                        <img src="cid:ferrari_logo" alt="Scuderia Ferrari" width="60" style="display: block; margin: 0 auto 15px auto; width: 60px; max-width: 60px;">
+                                        <img src="{'cid:ferrari_logo' if is_email else 'assets/ferrari_logo.png'}" alt="Scuderia Ferrari" width="60" style="display: block; margin: 0 auto 15px auto; width: 60px; max-width: 60px;">
                                         <h1 style="margin: 0 0 8px 0; font-family: 'Titillium Web', Arial, sans-serif; font-size: 32px; font-weight: 900; color: #FFF200; letter-spacing: 6px; text-transform: uppercase; text-shadow: 0 2px 20px rgba(255,242,0,0.4);">
                                             MARANELLO INSIDER
                                         </h1>

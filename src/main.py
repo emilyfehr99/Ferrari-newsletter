@@ -8,6 +8,10 @@ import sys
 import argparse
 from datetime import datetime
 import logging
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Add src to path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

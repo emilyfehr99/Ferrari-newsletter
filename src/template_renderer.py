@@ -212,7 +212,7 @@ class TemplateRenderer:
         try:
             # Get driver standings
             driver_resp = requests.get(
-                "https://ergast.com/api/f1/current/driverStandings.json",
+                "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
                 timeout=10
             )
             driver_resp.raise_for_status()
@@ -220,7 +220,7 @@ class TemplateRenderer:
             
             # Get constructor standings
             const_resp = requests.get(
-                "https://ergast.com/api/f1/current/constructorStandings.json",
+                "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json",
                 timeout=10
             )
             const_resp.raise_for_status()
@@ -326,7 +326,7 @@ class TemplateRenderer:
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="background: linear-gradient(145deg, #C41422 0%, #EF1A2D 30%, #FF3344 70%, #EF1A2D 100%); padding: 40px 40px 30px 40px; text-align: center;">
-                                        <img src="assets/ferrari_logo.png" alt="Scuderia Ferrari" width="90" style="display: block; margin: 0 auto 15px auto;">
+                                        <img src="cid:ferrari_logo" alt="Scuderia Ferrari" width="60" style="display: block; margin: 0 auto 15px auto; width: 60px; max-width: 60px;">
                                         <h1 style="margin: 0 0 8px 0; font-family: 'Titillium Web', Arial, sans-serif; font-size: 32px; font-weight: 900; color: #FFF200; letter-spacing: 6px; text-transform: uppercase; text-shadow: 0 2px 20px rgba(255,242,0,0.4);">
                                             MARANELLO INSIDER
                                         </h1>

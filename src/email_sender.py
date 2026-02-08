@@ -166,6 +166,31 @@ class EmailSender:
                 "html": html_content
             }
             
+            # Check for logo usage and attach if present
+            if 'cid:ferrari_logo' in html_content:
+                try:
+                    current_dir = os.path.dirname(os.path.abspath(__file__))
+                    img_path = os.path.join(current_dir, "..", "assets", "ferrari_logo.png")
+                    
+                    if os.path.exists(img_path):
+                        with open(img_path, 'rb') as f:
+                            # Resend expects a list of integers for content
+                            content = list(f.read())
+                            
+                        if "attachments" not in params:
+                            params["attachments"] = []
+                            
+                        params["attachments"].append({
+                            "filename": "ferrari_logo.png",
+                            "content": content,
+                            "content_id": "ferrari_logo"  # Content-ID for inline usage
+                        })
+                        logger.info(f"Attached ferrari_logo.png for Resend from {img_path}")
+                    else:
+                        logger.warning(f"Logo file not found at {img_path}, sending without logo")
+                except Exception as e:
+                    logger.error(f"Failed to attach logo for Resend: {e}")
+            
             response = resend.Emails.send(params)
             logger.info(f"Email sent via Resend successfully to {len(recipients)} recipients")
             return True
@@ -176,19 +201,44 @@ class EmailSender:
     def _send_via_smtp(self, html_content: str, recipients: List[str], subject: str, from_name: str) -> bool:
         """Send email using standard SMTP"""
         try:
-            # Create message
-            msg = MIMEMultipart("alternative")
+            # Create root message (related) to support embedded images
+            msg = MIMEMultipart("related")
             msg["Subject"] = subject
             msg["From"] = f"{from_name} <{self.username}>"
             msg["To"] = ", ".join(recipients)
+            
+            # Create alternative part for text/html
+            msg_alternative = MIMEMultipart("alternative")
+            msg.attach(msg_alternative)
             
             # Create plain text version (fallback)
             text_content = self._html_to_plaintext(html_content)
             part1 = MIMEText(text_content, "plain")
             part2 = MIMEText(html_content, "html")
             
-            msg.attach(part1)
-            msg.attach(part2)
+            msg_alternative.attach(part1)
+            msg_alternative.attach(part2)
+            
+            # Check for logo usage and attach if present
+            if 'cid:ferrari_logo' in html_content:
+                try:
+                    # Locate logo - assume it's in ../assets/ferrari_logo.png relative to this script
+                    current_dir = os.path.dirname(os.path.abspath(__file__))
+                    img_path = os.path.join(current_dir, "..", "assets", "ferrari_logo.png")
+                    
+                    if os.path.exists(img_path):
+                        with open(img_path, 'rb') as f:
+                            img = MIMEImage(f.read())
+                            
+                        # Define the image ID as referenced in the HTML
+                        img.add_header('Content-ID', '<ferrari_logo>')
+                        img.add_header('Content-Disposition', 'inline', filename='ferrari_logo.png')
+                        msg.attach(img)
+                        logger.info(f"Attached ferrari_logo.png from {img_path}")
+                    else:
+                        logger.warning(f"Logo file not found at {img_path}, sending without logo")
+                except Exception as e:
+                    logger.error(f"Failed to attach logo: {e}")
             
             # Send via SMTP
             with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:

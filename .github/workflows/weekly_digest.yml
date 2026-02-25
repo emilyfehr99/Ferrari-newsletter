@@ -30,9 +30,5 @@ jobs:
     - name: Generate and Send Newsletter
       env:
         RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
-        SMTP_PORT: ${{ secrets.SMTP_PORT }}
-        SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
-        SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
       run: |
         python src/main.py --send-all

@@ -46,6 +46,9 @@ class FerrariNewsScraper:
         "The Race": "https://the-race.com/feed/",
         "Autosport": "https://www.autosport.com/rss/f1/news/",
         "MotorsportWeek": "https://www.motorsportweek.com/feed/",
+        # High-signal engineering/tech coverage (RSS page: https://www.f1technical.net/rss)
+        # Note: their articles feed can lag; the news feed is reliably current.
+        "F1Technical.net": "https://www.f1technical.net/rss/news.xml",
     }
     
     # X/Twitter profiles to scrape (via Nitter for better reliability)
@@ -374,7 +377,28 @@ class FerrariNewsScraper:
     def is_ferrari_related(self, article: Article) -> bool:
         """Check if an article is related to Ferrari"""
         text = f"{article.title} {article.summary}".lower()
-        return any(keyword in text for keyword in self.FERRARI_KEYWORDS)
+
+        # Hard filters: keep this newsletter strictly F1-focused.
+        # (If a Ferrari article mentions these, it will still pass via the Ferrari checks below.)
+        non_target_markers = [
+            "f1 academy", "f2", "formula 2", "f3", "formula 3",
+            "formula e", "indycar", "wec", "wrc", "motogp", "nascar",
+        ]
+        if any(m in text for m in non_target_markers):
+            # Allow through only if it is clearly Ferrari F1-related.
+            if not any(k in text for k in ["ferrari", "scuderia", "maranello"]):
+                return False
+
+        # Require clear Ferrari context. "Hamilton" by itself can match irrelevant non-Ferrari pieces.
+        ferrari_core = ["ferrari", "scuderia", "maranello", "vasseur", "leclerc", "charles leclerc"]
+        if any(k in text for k in ferrari_core):
+            return True
+
+        # Allow Hamilton only when the article also explicitly mentions Ferrari context.
+        if "hamilton" in text or "lewis hamilton" in text:
+            return any(k in text for k in ["ferrari", "scuderia", "maranello"])
+
+        return False
     
     def is_technical(self, article: Article) -> bool:
         """Check if an article has technical content"""

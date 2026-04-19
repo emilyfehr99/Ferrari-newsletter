@@ -57,8 +57,14 @@ class ContentFilter:
         
         for article in articles:
             if self.scraper.is_ferrari_related(article):
-                # Categorize the article
                 article.category = self._categorize(article)
+                ferrari_articles.append(article)
+                continue
+
+            # Allow best-in-class technical sources into Technical Corner even if not Ferrari-specific.
+            # This keeps the newsletter Ferrari-focused while still surfacing high-value engineering explainers.
+            if article.source == "F1Technical.net" and self.scraper.is_technical(article):
+                article.category = "Technical"
                 ferrari_articles.append(article)
         
         logger.info(f"Filtered {len(ferrari_articles)} Ferrari articles from {len(articles)} total")
@@ -178,6 +184,7 @@ class ContentFilter:
             "Motorsport.com": 3,
             "The Race": 3,
             "Autosport": 2,
+            "F1Technical.net": 2,
         }
         return priorities.get(source, 1)
     
